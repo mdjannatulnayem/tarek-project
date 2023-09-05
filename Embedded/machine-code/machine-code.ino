@@ -2,9 +2,9 @@
 #include <ESP8266HTTPClient.h>
 #include <ArduinoJson.h>
 
-const char* ssid = "TUTORA";      // Your WiFi SSID
-const char* password = "azizkaka";  // Your WiFi password
-const char* serverAddress = "http://192.168.0.106:3000/data/2";  // Replace with your server address and port
+const char* ssid = ""; // Your WiFi SSID
+const char* password = ""; // Your WiFi password
+const char* serverAddress = "http://192.168.XX.YY:ZZ/data/W";  // Replace with your server address and port
 
 DynamicJsonDocument doc(256);
 double amp = 1.23;
@@ -20,9 +20,6 @@ void setup() {
     Serial.println("Connecting to WiFi...");
   }
   Serial.println("Connected to WiFi");
-
-  // Send a POST request
-  sendPostRequest();
 }
 
 void loop() {
