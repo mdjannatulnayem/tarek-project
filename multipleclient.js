@@ -79,6 +79,41 @@ app.get('/switches/:sw', (req, res) => {
 });
 
 
+// GET endpoint to add a double value to the '/temps' path with a timestamp-based key
+app.get('/addTemp/:value', (req, res) => {
+  const { value } = req.params;
+
+  // Convert the value to a floating-point number
+  const doubleValue = parseFloat(value);
+
+  if (!isNaN(doubleValue)) {
+    // Generate a timestamp-based key in the Dhaka time zone
+    const timestampKey = moment().tz('Asia/Dhaka').format('YYYY-MM-DDTHH:mm:ss_SSSZ').replace(/\./g, '_');
+
+    // Reference to the '/temps' path in Firebase Realtime Database
+    const db = admin.database();
+    const ref = db.ref('/temps');
+
+    // Create a new data object
+    const dataObject = {
+      timestamp: timestampKey,
+      value: doubleValue,
+    };
+
+    // Push the data to Firebase Realtime Database with the timestamp-based key
+    ref.child(timestampKey).set(dataObject, (error) => {
+      if (error) {
+        res.status(500).json({ error: 'Error adding temperature data to Firebase' });
+      } else {
+        res.status(201).json({ timestamp: timestampKey, value: doubleValue });
+      }
+    });
+  } else {
+    res.status(400).json({ error: 'Invalid input format for temperature value' });
+  }
+});
+
+
 
 // Start the server
 app.listen(port, () => {
