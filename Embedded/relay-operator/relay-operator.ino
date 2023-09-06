@@ -8,9 +8,9 @@
 #define DHTPIN D5     // what pin we're connected to
 #define DHTTYPE DHT22   // DHT 22
 
-const char* ssid = "TUTORA"; // Replace with your WiFi SSID
-const char* password = "azizkaka"; // Replace with your WiFi password
-const char* server = "http://192.168.0.117:3000";
+const char* ssid = ""; // Replace with your WiFi SSID
+const char* password = ""; // Replace with your WiFi password
+const char* server = "http://192.168.XX.YY:ZZZZ";
 
 DHT dht(DHTPIN, DHTTYPE); //// Initialize DHT sensor for normal 16mhz Arduino
 
